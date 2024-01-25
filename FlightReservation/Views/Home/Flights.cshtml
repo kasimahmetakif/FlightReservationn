@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Flight>
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- TODO Slider -->
+<div id="carouselExampleIndicators"
+     class="carousel slide"
+     data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="https://cdn.turkishairlines.com/m/2db3030a1fdd4cfb/original/01-1400x400.jpg"
+                 class="d-block"
+                 style="width: 100%; height: 400px; opacity: 0.85" />
+        </div>
+    </div>
+</div>
+
+<!-- TODO Flights -->
+
+<div class="container mt-5">
+    <h2 class="mb-4">Flight List</h2>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Flight Code</th>
+                <th>Airline</th>
+                <th>Departure Airport</th>
+                <th>Arrival Airport</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var flight in Model)
+            {
+                <tr>
+                    <td>@flight.FlightID</td>
+                    <td>@flight.Airline.AirlineName</td> 
+                    <td>@flight.DepartureAirport.AirportName</td> 
+                    <td>@flight.ArrivalAirport.AirportName</td>
+                    <td>@flight.Price USD</td>
+                    <td>
+                        <form asp-action="Purchase" asp-route-id="@flight.FlightID" method="get">
+                            <button type="submit" class="btn btn-success">Purchase</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>

@@ -1,0 +1,251 @@
+.aircraft {
+  position: relative;
+  /* margin: 80px auto; */
+  width: 10px;
+  background: #fff;
+  transform: scale(0.8);
+}
+
+.aircraft-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  min-width: min-content;
+  margin: auto;
+  border: 2px solid #c5c5c7;
+  min-height: 280px;
+  border-right: none;
+  border-left: none;
+  padding: 10px;
+  background: #fff;
+  left: 250px;
+}
+
+.top-left-exists,
+.top-right-exists,
+.bottom-right-exists,
+.bottom-left-exists {
+  position: absolute;
+}
+
+.top-left-exists,
+.top-right-exists {
+  top: -35px;
+}
+
+.bottom-right-exists,
+.bottom-left-exists {
+  bottom: -35px;
+  transform: rotate(180deg);
+}
+
+.top-left-exists,
+.bottom-left-exists {
+  left: -42px;
+}
+
+.top-right-exists,
+.bottom-right-exists {
+  right: -42px;
+}
+
+.seats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.seats:first-child {
+  margin-bottom: 20px;
+}
+
+.seats-triple {
+  margin-right: 20px;
+}
+
+.seats-triple::before {
+  content: attr(data-line);
+  position: relative;
+  text-align: center;
+  font-family: tahoma;
+  left: 15px;
+  font-size: 12px;
+}
+
+.seats-triple.first-line .seat::after {
+  left: -25px;
+}
+
+.seats-triple.last-line .seat::after {
+  right: -52px;
+}
+
+.seat {
+  cursor: pointer;
+  border: solid 1px #88857c;
+  width: 39px;
+  height: 33px;
+  border-radius: 4px;
+  padding: 1px;
+  margin-top: 6px;
+  transition: all 0.3s ease;
+}
+
+.seat::before {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 26px;
+  border: solid 1px #88857c;
+  margin: 2px -2px;
+  border-left: none;
+  border-radius: 0 5px 5px 0;
+}
+
+.seat::after {
+  position: relative;
+  content: attr(data-letter);
+  font-family: tahoma;
+  top: -25px;
+}
+
+.seat:hover {
+  border-color: #007bff;
+}
+
+.seat:active,
+.seat.selected {
+  background-color: #d9e8a5;
+  border-color: #218838;
+}
+
+.exists {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: bottom;
+  position: relative;
+  left: -280px;
+}
+
+.aircraft-top-wing,
+.aircraft-bottom-wing {
+  position: absolute;
+  width: 250px;
+  height: 200px;
+  left: 50%;
+}
+
+.aircraft-top-wing {
+  top: -202px;
+}
+
+.aircraft-bottom-wing {
+  bottom: -202px;
+}
+
+.aircraft-top-wing::before,
+.aircraft-bottom-wing::before,
+.aircraft-top-wing::after,
+.aircraft-bottom-wing::after {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 200px;
+  border: 2px solid #c5c5c7;
+}
+
+.aircraft-top-wing::before {
+  bottom: -2px;
+  border-bottom-left-radius: 30px;
+  border-right: none;
+  border-top: none;
+}
+
+.aircraft-top-wing::after {
+  bottom: -2px;
+  border-bottom-right-radius: 60px;
+  border-top: none;
+  border-left: none;
+  transform: skew(-35deg);
+  left: -500px;
+}
+
+.aircraft-bottom-wing::before {
+  top: -2px;
+  border-top-left-radius: 30px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.aircraft-bottom-wing::after {
+  top: -2px;
+  border-top-right-radius: 60px;
+  border-bottom: none;
+  border-left: none;
+  transform: skew(35deg);
+  left: -500px;
+}
+
+.aircraft-head {
+  position: absolute;
+  height: 310px;
+  width: 330px;
+  margin: auto;
+  overflow: hidden;
+  top: -2px;
+  left: -326px;
+}
+
+.aircraft-head-body {
+  position: absolute;
+  height: 300px;
+  width: 548px;
+  padding-left: 115px;
+  border-radius: 50%;
+  right: -343px;
+  border: 2px solid #c5c5c7;
+}
+
+.air craft-head-body .windows {
+  position: absolute;
+  top: 70px;
+  left: 50px;
+}
+
+.aircraft-head-body .front-lavatory {
+  position: absolute;
+  bottom: 15px;
+  left: 220px;
+}
+
+.aircraft-tail {
+  position: absolute;
+  height: 323px;
+  width: 700px;
+  margin: auto;
+  overflow: hidden;
+  top: -3px;
+  right: -320px;
+  padding-left: 121px;
+  z-index: -1;
+}
+
+.aircraft-tail-body {
+  position: absolute;
+  height: 302px;
+  width: 548px;
+  padding-left: 135px;
+  border-radius: 50%;
+  border: 2px solid #c5c5c7;
+}
+
+.aircraft-tail-body .back-lavatory {
+  width: 40px;
+  height: 98%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  margin-left: 250px;
+}

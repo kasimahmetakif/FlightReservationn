@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uçuş Rezervasyon Sistemi</title>
+    <link rel="stylesheet" href="assets/css/siteStyle.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- TODO Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="anasayfa.html">
+            <img src="~/assets/images/BookUs-Logo.png" alt="" style="width: 100%" />
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Flights", "Home")">Flights</a>
+                    <!-- ControllerName, FlightController adınızı yansıtmalıdır -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Airports", "Home")">Airports</a>
+                    <!-- ControllerName, AirportController adınızı yansıtmalıdır -->
+                </li>
+            </ul>
+            <partial name="_LoginPartial" />
+        </div>
+
+    </nav>
+    
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <!-- TODO Footer -->
+
+    <footer class="bg-dark text-white pt-4 pb-2">
+        <div class="container text-center text-md-left">
+            <div class="row text-center text-md-left">
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">Company</h5>
+                    <p>
+                        BookUs is a flight reservation system that allows you to book your
+                        flight tickets easily. The company is sponsored by Turkish
+                        Airlines.
+                    </p>
+                </div>
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">Services</h5>
+                    <p>
+                        <a href="#" class="text-white" style="text-decoration: none">Plane Tickets</a>
+                    </p>
+                </div>
+
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">Help Desk</h5>
+                    <p>
+                        <a href="#" class="text-white" style="text-decoration: none">Your Account</a>
+                    </p>
+                    <p>
+                        <a href="#" class="text-white" style="text-decoration: none">Help Center</a>
+                    </p>
+                    <p>
+                        <a href="#" class="text-white" style="text-decoration: none">Reservations</a>
+                    </p>
+                </div>
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">Contact</h5>
+                    <p>
+                        <i class="fas fa-home mr-3"></i> Turkish Airlines headquarters
+                    </p>
+                    <p><i class="fas fa-envelope mr-3"></i> info@bookus.com</p>
+                    <p><i class="fas fa-phone mr-3"></i> + 90 123 456 89 01</p>
+                </div>
+            </div>
+
+            <hr class="mb-4" />
+
+            <div class="row align-items-center">
+                <div class="col-md-7 col-lg-8">
+                    <p>© 2024 Copyright: <strong class="text-white">BookUs</strong></p>
+                </div>
+
+                <div class="col-md-5 col-lg-4">
+                    <div class="text-center text-md-right">
+                        <ul class="list-unstyled list-inline">
+                            <li class="list-inline-item">
+                                <a href="#"
+                                   class="btn-floating btn-sm text-white"
+                                   style="font-size: 23px">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#"
+                                   class="btn-floating btn-sm text-white"
+                                   style="font-size: 23px">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#"
+                                   class="btn-floating btn-sm text-white"
+                                   style="font-size: 23px">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a href="#"
+                                   class="btn-floating btn-sm text-white"
+                                   style="font-size: 23px">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script> *@
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
