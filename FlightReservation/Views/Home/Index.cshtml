@@ -54,7 +54,6 @@
 </div>
 
 <!-- TODO Şehirler -->
-
 <div class="container my-4" style="margin-top: 150px !important">
     <div class="row">
         @foreach (var airportInfo in ViewBag.AirportInfos)
@@ -68,11 +67,17 @@
                         <p class="card-text">
                             <small class="text-muted">Economy Class</small>
                         </p>
-                        <a href="#" class="btn btn-danger btn-block">Purchase Ticket</a>
+                        <form action="/Home/CountryFlights" method="get">
+                            <input type="hidden" name="airportID" value="@airportInfo.AirportID" />
+                            <button type="submit" class="btn btn-success">Purchase</button>
+                        </form>
                     </div>
                 </div>
             </div>
         }
     </div>
 </div>
+
+
+
 

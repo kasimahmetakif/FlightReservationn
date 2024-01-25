@@ -19,28 +19,26 @@ namespace FlightReservation.Controllers
             _context = context;
         }
 
-        // Bu action, Index view'ında iki dropdown listesi için havalimanları verilerini çeker.
         public async Task<IActionResult> Index()
         {
             var airportsSelectList = new SelectList(await _context.Airports.ToListAsync(), "AirportID", "AirportName");
             ViewBag.DepartureAirports = airportsSelectList;
             ViewBag.ArrivalAirports = airportsSelectList;
 
-            // Havalimanları ve en düşük fiyatları çekme
             var airportInfos = await _context.Airports
-                .Select(a => new
-                {
-                    a.AirportName,
-                    a.Image, // Varsayalım ki havalimanı için resim url'si bu alanda tutuluyor
-                    LowestPrice = _context.Flights
-                        .Where(f => f.DepartureAirport.AirportName == a.AirportName)
-                        .OrderBy(f => f.Price)
-                        .Select(f => f.Price)
-                        .FirstOrDefault() // En düşük fiyat
-                })
-                .ToListAsync();
+            .Select(a => new
+            {
+                AirportID = a.AirportID, 
+                AirportName = a.AirportName,
+                Image = a.Image, 
+                LowestPrice = _context.Flights
+                    .Where(f => f.DepartureAirportID == a.AirportID)
+                    .OrderBy(f => f.Price)
+                    .Select(f => f.Price)
+                    .FirstOrDefault() 
+            })
+            .ToListAsync();
 
-            // View'da kullanmak üzere ViewBag'a ekleme
             ViewBag.AirportInfos = airportInfos;
 
             return View();
@@ -57,7 +55,6 @@ namespace FlightReservation.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        // Bu action, Flights view'ı için gerekli uçuş verilerini çeker.
         public async Task<IActionResult> Flights()
         {
             var flights = await _context.Flights
@@ -86,6 +83,20 @@ namespace FlightReservation.Controllers
 
             return View("SearchResults", flights);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> CountryFlights(int airportID)
+        {
+            var flights = await _context.Flights
+                .Include(f => f.Airline)
+                .Include(f => f.DepartureAirport)
+                .Include(f => f.ArrivalAirport)
+                .Where(f => f.DepartureAirportID == airportID) 
+                .ToListAsync();
+
+            return View(flights);
+        }
+
 
     }
 }
