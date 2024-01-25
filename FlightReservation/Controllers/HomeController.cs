@@ -1,8 +1,10 @@
 ﻿using FlightReservation.Data;
 using FlightReservation.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace FlightReservation.Controllers
 {
@@ -14,12 +16,33 @@ namespace FlightReservation.Controllers
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
-            this._context = context;
-
+            _context = context;
         }
 
-        public IActionResult Index()
+        // Bu action, Index view'ında iki dropdown listesi için havalimanları verilerini çeker.
+        public async Task<IActionResult> Index()
         {
+            var airportsSelectList = new SelectList(await _context.Airports.ToListAsync(), "AirportID", "AirportName");
+            ViewBag.DepartureAirports = airportsSelectList;
+            ViewBag.ArrivalAirports = airportsSelectList;
+
+            // Havalimanları ve en düşük fiyatları çekme
+            var airportInfos = await _context.Airports
+                .Select(a => new
+                {
+                    a.AirportName,
+                    a.Image, // Varsayalım ki havalimanı için resim url'si bu alanda tutuluyor
+                    LowestPrice = _context.Flights
+                        .Where(f => f.DepartureAirport.AirportName == a.AirportName)
+                        .OrderBy(f => f.Price)
+                        .Select(f => f.Price)
+                        .FirstOrDefault() // En düşük fiyat
+                })
+                .ToListAsync();
+
+            // View'da kullanmak üzere ViewBag'a ekleme
+            ViewBag.AirportInfos = airportInfos;
+
             return View();
         }
 
@@ -34,19 +57,35 @@ namespace FlightReservation.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [Route("Home/Flights")]
-        [HttpGet]
+        // Bu action, Flights view'ı için gerekli uçuş verilerini çeker.
         public async Task<IActionResult> Flights()
         {
-            var applicationDbContext = _context.Flights.Include(f => f.Airline).Include(f => f.ArrivalAirport).Include(f => f.DepartureAirport);
-            return View(await applicationDbContext.ToListAsync());
+            var flights = await _context.Flights
+                .Include(f => f.Airline)
+                .Include(f => f.DepartureAirport)
+                .Include(f => f.ArrivalAirport)
+                .ToListAsync();
+
+            return View(flights);
         }
 
-        public async Task<IActionResult> Airports()
+        [HttpGet]
+        public async Task<IActionResult> SearchFlights(int? departureAirportID, int? arrivalAirportID)
         {
-            return _context.Airports != null ?
-                        View(await _context.Airports.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.Airports'  is null.");
+            if (!departureAirportID.HasValue || !arrivalAirportID.HasValue)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var flights = await _context.Flights
+                .Include(f => f.Airline)
+                .Include(f => f.DepartureAirport)
+                .Include(f => f.ArrivalAirport)
+                .Where(f => f.DepartureAirportID == departureAirportID.Value && f.ArrivalAirportID == arrivalAirportID.Value)
+                .ToListAsync();
+
+            return View("SearchResults", flights);
         }
+
     }
 }

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Flight>
+
+<!-- Uçuşları listeleme -->
+<div class="container mt-5">
+    <h2 class="mb-4">Flight List</h2>
+    <table class="table" style="vertical-align:middle !important">
+        <thead class="thead-dark">
+            <tr>
+                <th>Flight Code</th>
+                <th>Airline</th>
+                <th>Departure Airport</th>
+                <th>Arrival Airport</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var flight in Model)
+            {
+                <tr>
+                    <td>@flight.FlightID</td>
+                    <td>@flight.Airline.AirlineName</td>
+                    <td>@flight.DepartureAirport.AirportName</td>
+                    <td>@flight.ArrivalAirport.AirportName</td>
+                    <td>@flight.Price USD</td>
+                    <td>
+                        <form asp-action="Purchase" asp-route-id="@flight.FlightID" method="get">
+                            <button type="submit" class="btn btn-success">Purchase</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>
+

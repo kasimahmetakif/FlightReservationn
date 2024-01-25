@@ -23,34 +23,16 @@
             <button class="btn btn-light btn-sm active">Plane Ticket</button>
         </div>
         <hr />
-        <form class="search-form">
+        <form class="search-form" asp-action="SearchFlights" asp-controller="Home" method="get">
             <div class="form-row">
                 <div class="col">
-                    <select class="form-control">
+                    <select name="departureAirportID" class="form-control" asp-items="ViewBag.DepartureAirports">
                         <option value="" selected disabled hidden>From</option>
-                        <option>Istanbul Airport</option>
-                        <option>Sabiha Gokcen Airport</option>
-                        <option>Esenboga Airport</option>
-                        <option>Heathrow Airport</option>
-                        <option>Charles de Gaulle Airport</option>
-                        <option>Frankfurt Airport</option>
-                        <option>Dubai International Airport</option>
-                        <option>John F. Kennedy International Airport</option>
-                        <option>Singapore Changi Airport</option>
                     </select>
                 </div>
                 <div class="col">
-                    <select class="form-control">
+                    <select name="arrivalAirportID" class="form-control" asp-items="ViewBag.ArrivalAirports">
                         <option value="" selected disabled hidden>Where to</option>
-                        <option>Istanbul Airport</option>
-                        <option>Sabiha Gokcen Airport</option>
-                        <option>Esenboga Airport</option>
-                        <option>Heathrow Airport</option>
-                        <option>Charles de Gaulle Airport</option>
-                        <option>Frankfurt Airport</option>
-                        <option>Dubai International Airport</option>
-                        <option>John F. Kennedy International Airport</option>
-                        <option>Singapore Changi Airport</option>
                     </select>
                 </div>
                 <div class="col">
@@ -59,7 +41,6 @@
                 <div class="col">
                     <select class="form-control">
                         <option selected>One-way</option>
-                        <option>Round-trip</option>
                     </select>
                 </div>
                 <div class="col">
@@ -76,134 +57,22 @@
 
 <div class="container my-4" style="margin-top: 150px !important">
     <div class="row">
-        <!-- Istanbul Card -->
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://cdn1.ntv.com.tr/gorsel/33zcTShTfkCxr22gDaMvbA.jpg?width=952&height=540&mode=both&scale=both"
-                     class="card-img-top"
-                     alt="Baku" />
-                <div class="card-body">
-                    <h5 class="card-title">Istanbul</h5>
-                    <p class="card-text">Starting from: 199 USD</p>
-                    <p class="card-text">
-                        <small class="text-muted">Economy Class</small>
-                    </p>
-                    <a href="#" class="btn btn-danger btn-block">Purchase Ticket</a>
+        @foreach (var airportInfo in ViewBag.AirportInfos)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="@airportInfo.Image" class="card-img-top" alt="@airportInfo.AirportName" />
+                    <div class="card-body">
+                        <h5 class="card-title">@airportInfo.AirportName</h5>
+                        <p class="card-text">Starting from: @airportInfo.LowestPrice USD</p>
+                        <p class="card-text">
+                            <small class="text-muted">Economy Class</small>
+                        </p>
+                        <a href="#" class="btn btn-danger btn-block">Purchase Ticket</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Ankara Card -->
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://d3rh8btizouuof.cloudfront.net/images/sehir/ankara.jpg"
-                     class="card-img-top"
-                     alt="Budapest" />
-                <div class="card-body">
-                    <h5 class="card-title">Ankara</h5>
-                    <p class="card-text">Starting from: 149 USD</p>
-                    <p class="card-text">
-                        <small class="text-muted">Economy Class</small>
-                    </p>
-                    <a href="#" class="btn btn-danger btn-block">Purchase Ticket</a>
-                </div>
-            </div>
-        </div>
-        <!-- London Card -->
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://media.timeout.com/images/106049585/image.jpg"
-                     class="card-img-top"
-                     alt="Prague" />
-                <div class="card-body">
-                    <h5 class="card-title">London</h5>
-                    <p class="card-text">Starting from: 199 USD</p>
-                    <p class="card-text">
-                        <small class="text-muted">Economy Class</small>
-                    </p>
-                    <a href="#" class="btn btn-danger btn-block">Purchase Ticket</a>
-                </div>
-            </div>
-        </div>
-        <!-- Paris Card -->
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://assets.enuygun.com/media/lib/570x400/uploads/image/1764.jpeg"
-                     class="card-img-top"
-                     alt="Prague" />
-                <div class="card-body">
-                    <h5 class="card-title">Paris</h5>
-                    <p class="card-text">Starting from: 179 USD</p>
-                    <p class="card-text">
-                        <small class="text-muted">Economy Class</small>
-                    </p>
-                    <a href="#" class="btn btn-danger btn-block">Purchase Ticket</a>
-                </div>
-            </div>
-        </div>
-        <!-- Germany Card -->
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Skyline_Frankfurt_am_Main_2015.jpg/800px-Skyline_Frankfurt_am_Main_2015.jpg"
-                     class="card-img-top"
-                     alt="Prague" />
-                <div class="card-body">
-                    <h5 class="card-title">Germany</h5>
-                    <p class="card-text">Starting from: 210 USD</p>
-                    <p class="card-text">
-                        <small class="text-muted">Economy Class</small>
-                    </p>
-                    <a href="#" class="btn btn-danger btn-block">Purchase Ticket</a>
-                </div>
-            </div>
-        </div>
-        <!-- Dubai Card -->
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://lp-cms-production.imgix.net/features/2017/09/dubai-marina-skyline-2c8f1708f2a1.jpg"
-                     class="card-img-top"
-                     alt="Prague" />
-                <div class="card-body">
-                    <h5 class="card-title">Dubai</h5>
-                    <p class="card-text">Starting from: 299 USD</p>
-                    <p class="card-text">
-                        <small class="text-muted">Economy Class</small>
-                    </p>
-                    <a href="#" class="btn btn-danger btn-block">Purchase Ticket</a>
-                </div>
-            </div>
-        </div>
-        <!-- New York Card -->
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://media.cntraveler.com/photos/63483e15ef943eff59de603a/master/pass/New%20York%20City_GettyImages-1347979016.jpg"
-                     class="card-img-top"
-                     alt="Prague" />
-                <div class="card-body">
-                    <h5 class="card-title">New York</h5>
-                    <p class="card-text">Starting from: 499 USD</p>
-                    <p class="card-text">
-                        <small class="text-muted">Economy Class</small>
-                    </p>
-                    <a href="#" class="btn btn-danger btn-block">Purchase Ticket</a>
-                </div>
-            </div>
-        </div>
-        <!-- Singapore Card -->
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://img.veenaworld.com/wp-content/uploads/2022/04/julien-de-salaberry-viwdmfrbXfI-unsplash.jpg"
-                     class="card-img-top"
-                     alt="Prague" />
-                <div class="card-body">
-                    <h5 class="card-title">Singapore</h5>
-                    <p class="card-text">Starting from: 399 USD</p>
-                    <p class="card-text">
-                        <small class="text-muted">Economy Class</small>
-                    </p>
-                    <a href="#" class="btn btn-danger btn-block">Purchase Ticket</a>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
 
