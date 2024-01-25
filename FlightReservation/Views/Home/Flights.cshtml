@@ -27,7 +27,7 @@
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th>Flight Code</th>
+                <th style="font-weight: bold;">Flight Code</th>
                 <th>Airline</th>
                 <th>Departure Airport</th>
                 <th>Arrival Airport</th>
@@ -39,7 +39,7 @@
             @foreach (var flight in Model)
             {
                 <tr>
-                    <td>@flight.FlightID</td>
+                    <td style="font-weight: bold;">@flight.FlightID</td>
                     <td>@flight.Airline.AirlineName</td> 
                     <td>@flight.DepartureAirport.AirportName</td> 
                     <td>@flight.ArrivalAirport.AirportName</td>

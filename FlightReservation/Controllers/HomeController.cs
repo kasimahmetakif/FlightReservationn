@@ -3,9 +3,11 @@ using FlightReservation.Models;
 using Iyzipay;
 using Iyzipay.Model;
 using Iyzipay.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -22,6 +24,7 @@ namespace FlightReservation.Controllers
             _context = context;
         }
 
+        
         public async Task<IActionResult> Index()
         {
             var airportsSelectList = new SelectList(await _context.Airports.ToListAsync(), "AirportID", "AirportName");
@@ -124,8 +127,8 @@ namespace FlightReservation.Controllers
         public IActionResult Order()
         {
             Options options = new Options(); // Iyzico Import
-            options.ApiKey = "sandbox-ZDtW3lzihIjLVRBEvyccHn1n8FxQwvwR";
-            options.SecretKey = "sandbox-6HuobXnHRvJA2Zkzzn8WkZ030wREchvI";
+            options.ApiKey = "sandbox-lUbo9K7LsFv1tJ6758sMzXFtqyhphoNM";
+            options.SecretKey = "sandbox-ThUcalODIo68ZWIT66bwJKCJ84T9EyEN";
             options.BaseUrl = "Https://sandbox-api.iyzipay.com";
 
             //double savePrice = 0;
@@ -212,5 +215,17 @@ namespace FlightReservation.Controllers
             return View();
         }
 
+        [Authorize("Admin")]
+        public IActionResult Admin()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> Airports()
+        {
+            var airports = await _context.Airports.ToListAsync();
+
+            return View(airports);
+        }
     }
 }

@@ -1,9 +1,12 @@
 ﻿@model IEnumerable<Airport>
 
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 
 <!-- TODO Slider -->
 <div id="carouselExampleIndicators"
@@ -19,73 +22,27 @@
 </div>
 
 <!-- TODO Airports -->
-
 <div class="container mt-5">
     <h2 class="mb-4">Airports</h2>
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th>Airport Code</th>
-                <th>Airport Name</th>
-                <th>City</th>
-                <th>Country</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Istanbul Airport</td>
-                <td>Istanbul</td>
-                <td>Türkiye</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Sabiha Gokcen Airport</td>
-                <td>Istanbul</td>
-                <td>Türkiye</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Esenboga Airport</td>
-                <td>Ankara</td>
-                <td>Türkiye</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Heathrow Airport</td>
-                <td>London</td>
-                <td>United Kingdom</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Charles de Gaulle Airport</td>
-                <td>Paris</td>
-                <td>France</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>Frankfurt Airport</td>
-                <td>Frankfurt</td>
-                <td>Germany</td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>Dubai International Airport</td>
-                <td>Dubai</td>
-                <td>UAE</td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>John F. Kennedy International Airport</td>
-                <td>New York</td>
-                <td>USA</td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>Singapore Changi Airport</td>
-                <td>Singapore</td>
-                <td>Singapore</td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                <th style="font-weight: bold;">Airport Code</th>
+                    <th>Airport Name</th>
+                    <th>City</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var airport in Model)
+                {
+                    <tr>
+                    <td style="font-weight: bold;">@airport.AirportID</t>
+                        <td>@airport.AirportName</td>
+                        <td>@airport.City</td>
+                        <td>@airport.Country</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 </div>
