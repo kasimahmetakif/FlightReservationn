@@ -1,0 +1,21 @@
+﻿@model Flight 
+
+@{
+    ViewData["Title"] = "Purchase Flight";
+}
+
+<h2>@Model.Airline.AirlineName Flight Purchase</h2>
+<div>
+    <p>Flight Code: @Model.FlightID</p>
+    <p>Departure: @Model.DepartureAirport.AirportName</p>
+    <p>Arrival: @Model.ArrivalAirport.AirportName</p>
+    <p>Price: @Model.Price USD</p>
+    <!-- Ödeme formunu ve diğer bilgileri buraya ekleyin -->
+</div>
+
+<!-- Ödeme işlemleri için form -->
+<form asp-action="ProcessPayment" method="post">
+    <input type="hidden" name="FlightID" value="@Model.FlightID" />
+    <!-- Ödeme bilgileri için input alanları -->
+    <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+</form>

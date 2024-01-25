@@ -69,7 +69,10 @@
                         </p>
                         <form action="/Home/CountryFlights" method="get">
                             <input type="hidden" name="airportID" value="@airportInfo.AirportID" />
-                            <button type="submit" class="btn btn-success">Purchase</button>
+                            <form action="/Home/CommonPurchase" method="get">
+                                <input type="hidden" name="id" value="@airportInfo.AirportID" />
+                                <button type="submit" class="btn btn-success">Purchase</button>
+                            </form>
                         </form>
                     </div>
                 </div>

@@ -24,9 +24,10 @@
                     <td>@flight.ArrivalAirport.AirportName</td>
                     <td>@flight.Price USD</td>
                     <td>
-                        <form asp-action="Purchase" asp-route-id="@flight.FlightID" method="get">
+                        <form asp-action="CommonPurchase" asp-controller="Home" asp-route-id="@flight.FlightID" method="get">
                             <button type="submit" class="btn btn-success">Purchase</button>
                         </form>
+
                     </td>
                 </tr>
             }
