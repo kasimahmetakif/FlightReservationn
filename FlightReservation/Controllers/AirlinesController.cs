@@ -18,7 +18,6 @@ namespace FlightReservation.Controllers
             _context = context;
         }
 
-        // GET: Airlines
         public async Task<IActionResult> Index()
         {
               return _context.Airlines != null ? 
@@ -26,7 +25,6 @@ namespace FlightReservation.Controllers
                           Problem("Entity set 'ApplicationDbContext.Airlines'  is null.");
         }
 
-        // GET: Airlines/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Airlines == null)
@@ -44,15 +42,12 @@ namespace FlightReservation.Controllers
             return View(airline);
         }
 
-        // GET: Airlines/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Airlines/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AirlineID,AirlineName,IsStatus")] Airline airline)
@@ -66,7 +61,6 @@ namespace FlightReservation.Controllers
             return View(airline);
         }
 
-        // GET: Airlines/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Airlines == null)
@@ -82,9 +76,7 @@ namespace FlightReservation.Controllers
             return View(airline);
         }
 
-        // POST: Airlines/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AirlineID,AirlineName,IsStatus")] Airline airline)
@@ -117,7 +109,6 @@ namespace FlightReservation.Controllers
             return View(airline);
         }
 
-        // GET: Airlines/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Airlines == null)
@@ -135,7 +126,6 @@ namespace FlightReservation.Controllers
             return View(airline);
         }
 
-        // POST: Airlines/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

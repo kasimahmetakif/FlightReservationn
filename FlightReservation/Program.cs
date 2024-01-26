@@ -33,15 +33,11 @@ namespace FlightReservation
             builder.Services.AddScoped<IAirlineService, AirlineService>();
             builder.Services.AddScoped<IFlightService, FlightService>();
             builder.Services.AddScoped<IAirportService, AirportService>();
-
-            // Eðer Yolcu alaný için hizmetleriniz varsa, benzer þekilde kaydedin.
-            // Örnek:
-            // builder.Services.AddScoped<IPassengerService, PassengerService>();
+            builder.Services.AddSession();
 
             // HTTP istek pipeline'ýný yapýlandýr.
             var app = builder.Build();
 
-            // Create a scope to obtain a reference to the database context (ApplicationDbContext).
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -82,6 +78,7 @@ namespace FlightReservation
             // Yönlendirme.
             app.UseRouting();
 
+            app.UseSession();
             // Kimlik doðrulama ve yetkilendirme.
             app.UseAuthentication();
             app.UseAuthorization();

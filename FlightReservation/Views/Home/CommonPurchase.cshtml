@@ -10,12 +10,11 @@
     <p>Departure: @Model.DepartureAirport.AirportName</p>
     <p>Arrival: @Model.ArrivalAirport.AirportName</p>
     <p>Price: @Model.Price USD</p>
-    <!-- Ödeme formunu ve diğer bilgileri buraya ekleyin -->
 </div>
 
-<!-- Ödeme işlemleri için form -->
-<form asp-action="ProcessPayment" method="post">
+<form asp-action="CommonPurchase" method="post">
     <input type="hidden" name="FlightID" value="@Model.FlightID" />
-    <!-- Ödeme bilgileri için input alanları -->
+    <input type="hidden" name="status" value="@Model.IsStatus" />
+
     <button type="submit" class="btn btn-primary">Proceed to Payment</button>
 </form>

@@ -105,6 +105,10 @@ namespace FlightReservation.Controllers
 
         public async Task<IActionResult> CommonPurchase(int? id)
         {
+            var getId = id;
+            string price = _context.Flights.FirstOrDefault(x => x.FlightID == getId).Price.ToString();
+            HttpContext.Session.SetString("price", price);
+
             if (id == null)
             {
                 return RedirectToAction("Index");
@@ -124,11 +128,23 @@ namespace FlightReservation.Controllers
             return View(flight);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CommonPurchase(int? FlightID, bool status)
+        {
+            var getId = FlightID;
+            string price = _context.Flights.FirstOrDefault(x => x.FlightID == getId).Price.ToString();
+            HttpContext.Session.SetString("price", price);
+            return RedirectToAction("Order", "Home");
+        }
+
         public IActionResult Order()
         {
+            string newPrice = HttpContext.Session.GetString("price");
+            double priceDouble = Convert.ToDouble(newPrice);
+
             Options options = new Options(); // Iyzico Import
-            options.ApiKey = "sandbox-lUbo9K7LsFv1tJ6758sMzXFtqyhphoNM";
-            options.SecretKey = "sandbox-ThUcalODIo68ZWIT66bwJKCJ84T9EyEN";
+            options.ApiKey = "sandbox-ZDtW3lzihIjLVRBEvyccHn1n8FxQwvwR";
+            options.SecretKey = "sandbox-6HuobXnHRvJA2Zkzzn8WkZ030wREchvI";
             options.BaseUrl = "Https://sandbox-api.iyzipay.com";
 
             //double savePrice = 0;
@@ -148,12 +164,12 @@ namespace FlightReservation.Controllers
             CreateCheckoutFormInitializeRequest request = new CreateCheckoutFormInitializeRequest();
             request.Locale = Locale.TR.ToString();
             request.ConversationId = "123456789";
-            request.Price = "1";
-            request.PaidPrice = "1";
+            request.Price = newPrice;
+            request.PaidPrice = newPrice;
             request.Currency = Currency.TRY.ToString();
             request.BasketId = "B67832";
             request.PaymentGroup = PaymentGroup.PRODUCT.ToString();
-            request.CallbackUrl = "https://localhost:7178/Customer/Cart/Success";
+            request.CallbackUrl = "https://localhost:7273/Home/Success";
 
             //List<int> enabledInstallments = new List<int>();
             //enabledInstallments.Add(2);
@@ -163,11 +179,11 @@ namespace FlightReservation.Controllers
             //request.EnabledInstallments = enabledInstallments;
 
             Buyer buyer = new Buyer();
-            buyer.Id = "asdadsada";
-            buyer.Name = "Erhan";
-            buyer.Surname = "Kaya";
+            buyer.Id = "61";
+            buyer.Name = "Ahmet Akif";
+            buyer.Surname = "Kasım";
             buyer.GsmNumber = "+905554443322";
-            buyer.Email = "email@email.com";
+            buyer.Email = "ahmetl@kasim.com";
             buyer.IdentityNumber = "74300864791";
             buyer.LastLoginDate = "2015-10-05 12:43:35";
             buyer.RegistrationDate = "2000-12-12 12:00:00";
@@ -198,14 +214,14 @@ namespace FlightReservation.Controllers
             BasketItem basketProduct;
             basketProduct = new BasketItem();
             basketProduct.Id = "1";
-            basketProduct.Name = "Asus Bilgisayar";
+            basketProduct.Name = "Flight";
             basketProduct.Category1 = "Bilgisayar";
             basketProduct.Category2 = "";
             basketProduct.ItemType = BasketItemType.PHYSICAL.ToString();
 
-            double price = 1;
-            double endPrice = 1;
-            basketProduct.Price = endPrice.ToString().Replace(",", "");
+            double price = priceDouble;
+            //double endPrice = 1;
+            basketProduct.Price = price.ToString(); /*.Replace(",", "")*/
             basketItems.Add(basketProduct);
 
             request.BasketItems = basketItems;
@@ -226,6 +242,11 @@ namespace FlightReservation.Controllers
             var airports = await _context.Airports.ToListAsync();
 
             return View(airports);
+        }
+        public async Task<IActionResult> Success()
+        {
+
+            return View();
         }
     }
 }

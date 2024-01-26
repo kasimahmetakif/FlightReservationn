@@ -18,14 +18,12 @@ namespace FlightReservation.Controllers
             _context = context;
         }
 
-        // GET: Flights
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Flights.Include(f => f.Airline).Include(f => f.ArrivalAirport).Include(f => f.DepartureAirport);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Flights/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Flights == null)
@@ -46,7 +44,6 @@ namespace FlightReservation.Controllers
             return View(flight);
         }
 
-        // GET: Flights/Create
         public IActionResult Create()
         {
             ViewData["AirlineID"] = new SelectList(_context.Airlines, "AirlineID", "AirlineName");
@@ -55,9 +52,6 @@ namespace FlightReservation.Controllers
             return View();
         }
 
-        // POST: Flights/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FlightID,AirlineID,DepartureAirportID,ArrivalAirportID,DepartureDateTime,ArrivalDateTime,SeatCapacity,Price,IsStatus")] Flight flight)
@@ -74,7 +68,6 @@ namespace FlightReservation.Controllers
             return View(flight);
         }
 
-        // GET: Flights/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Flights == null)
@@ -93,9 +86,6 @@ namespace FlightReservation.Controllers
             return View(flight);
         }
 
-        // POST: Flights/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("FlightID,AirlineID,DepartureAirportID,ArrivalAirportID,DepartureDateTime,ArrivalDateTime,SeatCapacity,Price,IsStatus")] Flight flight)
@@ -131,7 +121,6 @@ namespace FlightReservation.Controllers
             return View(flight);
         }
 
-        // GET: Flights/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Flights == null)
@@ -152,7 +141,6 @@ namespace FlightReservation.Controllers
             return View(flight);
         }
 
-        // POST: Flights/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
